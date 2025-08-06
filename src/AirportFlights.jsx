@@ -3,17 +3,36 @@ import axios from 'axios';
 
 const AirportFlights = () => {
     const [view, setView] = useState('arrivals');
-    const []
+    const [arrivals, setArrivals] = useState([]);
+    const [departures, setDepartures] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    const arrivals = [
-    { id: 1, flight: 'AA123', from: 'New York' },
-    { id: 2, flight: 'BA456', from: 'London' },
-    ];
+    const ARRIVALS_API = 'http://localhost:8080/flights/destination/1';
+    const DEPARTURES_API = 'http://localhost:8080/flights/origin/1';
 
-    const departures = [
-    { id: 3, flight: 'DL789', to: 'Paris' },
-    { id: 4, flight: 'UA321', to: 'Tokyo' },
-    ];
+    const FLIGHTS_API = 'http://localhost:8080/flights';
+
+useEffect(() => {
+  const fetchFlights = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await axios.get(FLIGHTS_API);
+      const allFlights = res.data;
+
+      setDepartures(allFlights.filter(flight => flight.originAirport !== null));
+      setArrivals(allFlights.filter(flight => flight.destinationAirport !== null));
+    } catch (err) {
+      setError('Failed to fetch flight data.');
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+  fetchFlights();
+}, []);
+
 
     const flightsToShow = view === 'arrivals' ? arrivals : departures;
 
@@ -38,9 +57,15 @@ const AirportFlights = () => {
                 </thead>
                 <tbody>
                     {flightsToShow.map((flight) => (
-                        <tr key={flight.id}>
-                            <td>{flight.flight}</td>
-                            <td>{view === 'arrivals' ? flight.from : flight.to}</td>
+                        <tr key={flight.flightId}>
+                            <td>{flight.flightNumber}</td>
+                            <td>
+                                {view === 'arrivals'
+                                    ? flight.originAirport?.name
+                                    : flight.destinationAirport?.name}
+                            </td>
+                            <td>{view === 'arrivals' ? flight.arrivalTime : flight.departureTime}</td>
+                            <td>{flight.status}</td>
                         </tr>
                     ))}
                 </tbody>
