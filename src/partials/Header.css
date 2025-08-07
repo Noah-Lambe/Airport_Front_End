@@ -1,0 +1,41 @@
+.airport-code-bar {
+  background-color: #d9d9d9;
+  display: flex;
+  justify-content: flex-end;
+  font-weight: bold;
+  font-family: 'Inter', sans-serif;
+}
+
+.airport-code-bar p {
+  margin-right: 15px;
+}
+
+.header {
+  background-color: #003f7f;
+  color: white;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-title {
+  text-align: left;
+}
+
+nav {
+  display: flex;
+  gap: 20px;
+  font-family: 'Inter', sans-serif;
+}
+
+.nav-link {
+  color: white;
+  font-size: 1.25rem;
+  margin: 10px;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  transform: scale(1.25);
+}

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './AirportFlights.css';
 
-const AirportFlights = () => {
+export default function AirportFlights() {
   const [view, setView] = useState('arrivals');
   const [arrivals, setArrivals] = useState([]);
   const [departures, setDepartures] = useState([]);
@@ -100,5 +100,3 @@ const AirportFlights = () => {
     </div>
   );
 };
-
-export default AirportFlights;

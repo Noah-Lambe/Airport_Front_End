@@ -6,7 +6,8 @@ import { useAuth } from './hooks/UserAuthentication';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import UserDashboard from './pages/UserDashboard';
-import AdminDashboard from './components/AdminDashboard';
+//import AdminDashboard from './components/AdminDashboard';
+import Header from './partials/Header'
 
 function PrivateRoute({ children }) {
   const { currentUser } = useAuth();
@@ -19,6 +20,9 @@ export default function App() {
 
   return (
     <BrowserRouter>
+
+      <Header/>
+
       <Routes>
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
         <Route path="/login" element={<Login />} />
