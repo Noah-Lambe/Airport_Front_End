@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './AirportFlights.css';
 
 const AirportFlights = () => {
   const [view, setView] = useState('arrivals');
@@ -64,12 +65,12 @@ const AirportFlights = () => {
             </th>
           </tr>
           <tr>
-            <th>Airline</th>
-            <th>Flight</th>
-            <th>Date</th>
-            <th>Time</th>
-            <th>{view === 'arrivals' ? 'From' : 'To'}</th>
-            <th>Status</th>
+            <th className='tableHeader'>Airline</th>
+            <th className='tableHeader'>Flight</th>
+            <th className='tableHeader'>Date</th>
+            <th className='tableHeader'>Time</th>
+            <th className='tableHeader'>{view === 'arrivals' ? 'From' : 'To'}</th>
+            <th className='tableHeader'>Status</th>
           </tr>
         </thead>
         <tbody>
@@ -84,12 +85,12 @@ const AirportFlights = () => {
 
               return (
                 <tr key={flight.flightId}>
-                  <td>{flight.airline?.airlineName || '—'}</td>
-                  <td>{flight.flightNumber}</td>
-                  <td>{date}</td>
-                  <td>{time}</td>
-                  <td>{view === 'arrivals' ? flight.originAirport?.airportName : flight.destinationAirport?.airportName}</td>
-                  <td>{flight.status}</td>
+                  <td className='tableElement'>{flight.airline?.airlineName || '—'}</td>
+                  <td className='tableElement'>{flight.flightNumber}</td>
+                  <td className='tableElement'>{date}</td>
+                  <td className='tableElement'>{time}</td>
+                  <td className='tableElements'>{view === 'arrivals' ? flight.originAirport?.airportName : flight.destinationAirport?.airportName}</td>
+                  <td className='tableElements'>{flight.status}</td>
                 </tr>
               );
             })
