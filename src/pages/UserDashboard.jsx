@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import api from "../api/client";
 import FlightCard from "../components/FlightCard";
+import UserBookings from "../components/UserBookings";
 
 export default function UserDashboard() {
   const [flights, setFlights] = useState([]);
@@ -25,6 +26,10 @@ export default function UserDashboard() {
         {flights.map((f) => (
           <FlightCard key={f.flightId} flight={f} />
         ))}
+      </div>
+      <div className="user-bookings">
+        <h2>Your Bookings</h2>
+        <UserBookings />
       </div>
     </div>
   );

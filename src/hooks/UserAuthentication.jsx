@@ -9,6 +9,8 @@ export function AuthProvider({ children }) {
     const saved = localStorage.getItem("creds");
     return saved ? JSON.parse(saved) : null;
   });
+
+  // initialize currentUser from localStorage (full user object including passengerId)
   const [currentUser, setCurrentUser] = useState(() => {
     const saved = localStorage.getItem("user");
     return saved ? JSON.parse(saved) : null;
@@ -33,14 +35,11 @@ export function AuthProvider({ children }) {
     // set Basic Auth headers for this session
     setBasicAuth(username, password);
     const { data } = await api.post("/auth/login", { username, password });
-    // data is { username, roles: }
+    // data is { username, roles, userId, passengerId, firstName, lastName, phoneNumber, cityId }
     setCreds({ username, password });
-    setCurrentUser({ username: data.username, roles: data.roles });
+    setCurrentUser(data);
     localStorage.setItem("creds", JSON.stringify({ username, password }));
-    localStorage.setItem(
-      "user",
-      JSON.stringify({ username: data.username, roles: data.roles })
-    );
+    localStorage.setItem("user", JSON.stringify(data));
     return data;
   };
 
@@ -59,5 +58,9 @@ export function AuthProvider({ children }) {
 }
 
 export function useAuth() {
-  return useContext(AuthContext);
+  const ctx = useContext(AuthContext);
+  if (!ctx) {
+    throw new Error("useAuth must be used within AuthProvider");
+  }
+  return ctx;
 }
