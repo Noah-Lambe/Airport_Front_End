@@ -1,45 +1,55 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useAuth } from "./hooks/UserAuthentication";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import UserDashboard from "./pages/UserDashboard";
-import AdminDashboard from "./components/AdminDashboard";
-
-//function App(){
-  //const isAdmin = true;
-
-  //return (
-    //<div>
-      //{isAdmin ? <AdminDashboard/> : <Userdashboard />}
-    //</div>
-  //);
-//}
-
-//export default App;
+import './App.css';
+import AirportFlights from './AirportFlights';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { useAuth } from './hooks/UserAuthentication';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import UserDashboard from './pages/UserDashboard';
+import AdminDashboard from './components/AdminDashboard';
 
 function PrivateRoute({ children }) {
   const { currentUser } = useAuth();
-  return currentUser ? children : <Navigate to="/login" />;
+  return currentUser ? children : <Navigate to="/login" replace />;
 }
 
 export default function App() {
+  const { currentUser } = useAuth();
+  const isAdmin = currentUser?.role === 'admin';
+
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+
+        {/* Dashboard Route (admin vs user) */}
         <Route
           path="/dashboard"
           element={
             <PrivateRoute>
-              <UserDashboard />
+              {isAdmin ? <AdminDashboard /> : <UserDashboard />}
             </PrivateRoute>
           }
         />
+
+        {/* Airport Flights Route */}
+        <Route
+          path="/airport-flights"
+          element={
+            <PrivateRoute>
+              <div className="App">
+                <AirportFlights />
+              </div>
+            </PrivateRoute>
+          }
+        />
+
+        {/* Fallback for unknown routes */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );
-
 }
+
