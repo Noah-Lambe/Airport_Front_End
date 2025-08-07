@@ -4,7 +4,19 @@ import { useAuth } from "./hooks/UserAuthentication";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import UserDashboard from "./pages/UserDashboard";
+import AdminDashboard from "./components/AdminDashboard";
 
+//function App(){
+  //const isAdmin = true;
+
+  //return (
+    //<div>
+      //{isAdmin ? <AdminDashboard/> : <Userdashboard />}
+    //</div>
+  //);
+//}
+
+//export default App;
 function PrivateRoute({ children }) {
   const { currentUser } = useAuth();
   return currentUser ? children : <Navigate to="/login" />;
@@ -28,4 +40,5 @@ export default function App() {
       </Routes>
     </BrowserRouter>
   );
+
 }
