@@ -1,36 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
 import api from "../api/client";
 import { useAuth } from "../hooks/UserAuthentication";
 
 export default function FlightCard({ flight }) {
-  const { currentUser } = useAuth(); // get currentUser via hook
+  const { currentUser } = useAuth();
+  const [error, setError] = useState("");
 
-  const handleBook = () => {
-    api
-      .post(`/flights/${flight.flightId}/addPassenger`, {
-        id: currentUser.passengerId,
-      })
-      .then(() => {
-        alert("Booked!");
-      })
-      .catch(() => {
-        alert("Booking failed");
+  const handleBook = async () => {
+    console.log("🚀 Booking payload:", {
+      passengerId: currentUser.passengerId,
+    });
+    setError("");
+    try {
+      await api.post(`/flights/${flight.flightId}/addPassenger`, {
+        passengerId: currentUser.passengerId,
       });
+      alert("Booked!");
+    } catch (err) {
+      console.error(err);
+      setError(err.response?.data?.message || "Booking failed");
+    }
   };
 
   return (
-    <div className="flight-card">
-      <h2>{flight.flightNumber}</h2>
+    <div className="flight-card p-4 border rounded">
+      <h2 className="text-xl font-semibold">{flight.flightNumber}</h2>
       <p>
         {flight.originAirport.airportName} →{" "}
         {flight.destinationAirport.airportName}
       </p>
-      <p>
+      <p className="text-sm text-gray-600">
         Departs: {new Date(flight.departureTime).toLocaleString()}
         <br />
         Arrives: {new Date(flight.arrivalTime).toLocaleString()}
       </p>
-      <button onClick={handleBook}>Book This Flight</button>
+
+      <button
+        onClick={handleBook}
+        className="mt-3 px-4 py-2 bg-green-600 text-white rounded"
+      >
+        Book This Flight
+      </button>
+
+      {error && <p className="text-red-600 mt-2">{error}</p>}
     </div>
   );
 }
