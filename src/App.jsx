@@ -17,6 +17,7 @@ import AdminDashboard from "./components/AdminDashboard";
 //}
 
 //export default App;
+
 function PrivateRoute({ children }) {
   const { currentUser } = useAuth();
   return currentUser ? children : <Navigate to="/login" />;
