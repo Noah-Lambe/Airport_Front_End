@@ -33,13 +33,13 @@ export default function UserBookings({ refreshKey }) {
   }, [currentUser, refreshKey]);
 
   if (loading) return <p>Loading your bookings…</p>;
-  if (error) return <p className="text-red-600">{error}</p>;
+  if (error) return <p>{error}</p>;
   if (flights.length === 0) return <p>You have no bookings yet.</p>;
 
   return (
     <div>
-      <h2 className="text-2xl mb-2">Your Booked Flights</h2>
-      <ul className="list-disc pl-5">
+      <h2>Your Booked Flights</h2>
+      <ul>
         {flights.map((f) => (
           <li key={f.flightId}>
             {f.flightNumber}: {f.originAirport.airportName} →{" "}
