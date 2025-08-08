@@ -7,6 +7,12 @@ export default function FlightCard({ flight, onBooked }) {
   const [error, setError] = useState("");
 
   const handleBook = async () => {
+<<<<<<< Updated upstream
+=======
+    console.log("Booking payload:", {
+      passengerId: currentUser.passengerId,
+    });
+>>>>>>> Stashed changes
     setError("");
     try {
       const { data: updatedFlight } = await api.post(
