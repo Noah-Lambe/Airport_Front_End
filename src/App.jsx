@@ -9,6 +9,7 @@ import UserDashboard from "./pages/UserDashboard";
 //import AdminDashboard from './components/AdminDashboard';
 import Header from "./components/Header";
 import Contact from "./pages/ContactPage";
+import Footer from "./components/Footer";
 
 function PrivateRoute({ children }) {
   const { currentUser } = useAuth();
@@ -21,41 +22,43 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <Header />
+        <Header />
 
-      <Routes>
-        <Route path="/" element={<Navigate to="/dashboard" replace />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Routes>
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
 
-        {/* Dashboard Route (admin vs user) */}
-        <Route
-          path="/dashboard"
-          element={
-            <PrivateRoute>
-              {isAdmin ? <AdminDashboard /> : <UserDashboard />}
-            </PrivateRoute>
-          }
-        />
+          {/* Dashboard Route (admin vs user) */}
+          <Route
+            path="/dashboard"
+            element={
+              <PrivateRoute>
+                {isAdmin ? <AdminDashboard /> : <UserDashboard />}
+              </PrivateRoute>
+            }
+          />
 
-        {/* Airport Flights Route */}
-        <Route
-          path="/airport-flights"
-          element={
-            <PrivateRoute>
-              <div className="App">
-                <AirportFlights />
-              </div>
-            </PrivateRoute>
-          }
-        />
+          {/* Airport Flights Route */}
+          <Route
+            path="/airport-flights"
+            element={
+              <PrivateRoute>
+                <div className="App">
+                  <AirportFlights />
+                </div>
+              </PrivateRoute>
+            }
+          />
 
-        {/* Contact Page Route */}
-        <Route path="/contact" element={<Contact />} />
+          {/* Contact Page Route */}
+          <Route path="/contact" element={<Contact />} />
 
-        {/* Fallback for unknown routes */}
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+          {/* Fallback for unknown routes */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+
+        <Footer />
     </BrowserRouter>
   );
 }
