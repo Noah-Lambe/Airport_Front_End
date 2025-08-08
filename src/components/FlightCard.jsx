@@ -2,20 +2,18 @@ import React, { useState } from "react";
 import api from "../api/client";
 import { useAuth } from "../hooks/UserAuthentication";
 
-export default function FlightCard({ flight }) {
+export default function FlightCard({ flight, onBooked }) {
   const { currentUser } = useAuth();
   const [error, setError] = useState("");
 
   const handleBook = async () => {
-    console.log("🚀 Booking payload:", {
-      passengerId: currentUser.passengerId,
-    });
     setError("");
     try {
-      await api.post(`/flights/${flight.flightId}/addPassenger`, {
-        passengerId: currentUser.passengerId,
-      });
-      alert("Booked!");
+      const { data: updatedFlight } = await api.post(
+        `/flights/${flight.flightId}/addPassenger`,
+        { passengerId: currentUser.passengerId }
+      );
+      onBooked?.(updatedFlight);
     } catch (err) {
       console.error(err);
       setError(err.response?.data?.message || "Booking failed");
