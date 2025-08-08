@@ -1,3 +1,4 @@
+// src/App.jsx
 import React from "react";
 import "./styles/App.css";
 import AirportFlights from "./AirportFlights";
@@ -23,9 +24,13 @@ export default function App() {
       <Header />
 
       <Routes>
-        <Route path="/" element={<Navigate to="/dashboard" replace />} />
+        <Route path="/" element={<Navigate to="/airport-flights" replace />} />
+
+        {/* public routes */}
+        <Route path="/airport-flights" element={<AirportFlights />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        {/* Jons contact route should go here */}
 
         {/* Dashboard Route (admin vs user) */}
         <Route
@@ -33,18 +38,6 @@ export default function App() {
           element={
             <PrivateRoute>
               {isAdmin ? <AdminDashboard /> : <UserDashboard />}
-            </PrivateRoute>
-          }
-        />
-
-        {/* Airport Flights Route */}
-        <Route
-          path="/airport-flights"
-          element={
-            <PrivateRoute>
-              <div className="App">
-                <AirportFlights />
-              </div>
             </PrivateRoute>
           }
         />
