@@ -45,12 +45,20 @@ export function AuthProvider({ children }) {
     localStorage.removeItem("user");
   };
 
-  return (
-    <AuthContext.Provider value={{ currentUser, register, login, logout }}>
-      {children}
-    </AuthContext.Provider>
-  );
-}
+return (
+  <AuthContext.Provider
+    value={{
+      currentUser,
+      register,
+      login,
+      logout,
+      isLoggedIn: !!currentUser,
+      isAdmin: currentUser?.roles?.includes("ROLE_ADMIN") || false,
+    }}
+  >
+    {children}
+  </AuthContext.Provider>
+);}
 
 export function useAuth() {
   const ctx = useContext(AuthContext);
