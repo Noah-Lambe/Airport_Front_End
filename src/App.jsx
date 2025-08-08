@@ -30,6 +30,7 @@ export default function App() {
         <Route path="/airport-flights" element={<AirportFlights />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        {/* Jons contact route should go here */}
 
         {/* Dashboard Route (admin vs user) */}
         <Route
@@ -37,18 +38,6 @@ export default function App() {
           element={
             <PrivateRoute>
               {isAdmin ? <AdminDashboard /> : <UserDashboard />}
-            </PrivateRoute>
-          }
-        />
-
-        {/* Airport Flights Route */}
-        <Route
-          path="/airport-flights"
-          element={
-            <PrivateRoute>
-              <div className="App">
-                <AirportFlights />
-              </div>
             </PrivateRoute>
           }
         />
