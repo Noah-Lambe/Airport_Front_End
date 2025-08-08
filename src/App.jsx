@@ -8,6 +8,7 @@ import Register from "./pages/Register";
 import UserDashboard from "./pages/UserDashboard";
 //import AdminDashboard from './components/AdminDashboard';
 import Header from "./components/Header";
+import Contact from "./pages/ContactPage";
 
 function PrivateRoute({ children }) {
   const { currentUser } = useAuth();
@@ -48,6 +49,9 @@ export default function App() {
             </PrivateRoute>
           }
         />
+
+        {/* Contact Page Route */}
+        <Route path="/contact" element={<Contact />} />
 
         {/* Fallback for unknown routes */}
         <Route path="*" element={<Navigate to="/" replace />} />
