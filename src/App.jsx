@@ -1,13 +1,13 @@
 import React from "react";
-import './App.css';
-import AirportFlights from './AirportFlights';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { useAuth } from './hooks/UserAuthentication';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import UserDashboard from './pages/UserDashboard';
+import "./styles/App.css";
+import AirportFlights from "./AirportFlights";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useAuth } from "./hooks/UserAuthentication";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import UserDashboard from "./pages/UserDashboard";
 //import AdminDashboard from './components/AdminDashboard';
-import Header from './partials/Header'
+import Header from "./components/Header";
 
 function PrivateRoute({ children }) {
   const { currentUser } = useAuth();
@@ -16,12 +16,11 @@ function PrivateRoute({ children }) {
 
 export default function App() {
   const { currentUser } = useAuth();
-  const isAdmin = currentUser?.role === 'admin';
+  const isAdmin = currentUser?.role === "admin";
 
   return (
     <BrowserRouter>
-
-      <Header/>
+      <Header />
 
       <Routes>
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
@@ -56,4 +55,3 @@ export default function App() {
     </BrowserRouter>
   );
 }
-
