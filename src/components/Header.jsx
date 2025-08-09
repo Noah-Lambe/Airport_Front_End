@@ -32,7 +32,7 @@ export default function Header() {
                 {isAdmin ? "Admin Dashboard" : "User Dashboard"}
               </Link>
               <button
-                onClick={logout}
+                onClick={handleLogout}
                 className="nav-link"
                 style={{
                   background: "none",
