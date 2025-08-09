@@ -1,39 +1,164 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useAuth } from "../hooks/UserAuthentication";
 import api from "../api/client";
-import FlightCard from "../components/FlightCard";
-import UserBookings from "../components/UserBookings";
+
+function fmt(dt) {
+  if (!dt) return "";
+  const d = new Date(dt.replace(" ", "T"));
+  return d.toLocaleString();
+}
 
 export default function UserDashboard() {
-  const [flights, setFlights] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [bookingsKey, setBookingsKey] = useState(0);
+  const { currentUser, isLoggedIn } = useAuth();
+  const passengerId = currentUser?.passengerId;
+  const [upcoming, setUpcoming] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [err, setErr] = useState("");
 
-  // load all flights once
+  // Fetch upcoming flights when user is ready
   useEffect(() => {
-    api
-      .get("/flights")
-      .then((res) => setFlights(res.data))
-      .catch((err) => setError(err))
-      .finally(() => setLoading(false));
-  }, []);
+    if (!isLoggedIn || !passengerId) return;
+    let cancel = false;
+    (async () => {
+      try {
+        setLoading(true);
+        setErr("");
+        const { data } = await api.get(`/flights/byPassenger/${passengerId}`);
+        if (!cancel) setUpcoming(Array.isArray(data) ? data : []);
+      } catch (e) {
+        if (!cancel) setErr(e?.message || "Failed to load flights");
+      } finally {
+        if (!cancel) setLoading(false);
+      }
+    })();
+    return () => {
+      cancel = true;
+    };
+  }, [isLoggedIn, passengerId]);
 
-  const triggerRefresh = () => setBookingsKey((k) => k + 1);
+  const stats = useMemo(
+    () => ({
+      totalUpcoming: upcoming.length,
+      byStatus: upcoming.reduce((acc, f) => {
+        acc[f.status] = (acc[f.status] || 0) + 1;
+        return acc;
+      }, {}),
+    }),
+    [upcoming]
+  );
 
-  if (loading) return <p>Loading flights…</p>;
-  if (error) return <p>Error loading flights</p>;
+  if (!isLoggedIn) {
+    return (
+      <div className="dash">
+        <section className="panel">
+          <div className="panel-head">
+            <h2>Welcome</h2>
+          </div>
+          <div className="empty">Please log in to view your dashboard.</div>
+        </section>
+      </div>
+    );
+  }
+
+  if (!passengerId) {
+    return (
+      <div className="dash">
+        <section className="panel">
+          <div className="panel-head">
+            <h2>Account issue</h2>
+          </div>
+          <div className="empty">
+            Your user doesn’t include a <code>passengerId</code>. Make sure your
+            <code>/auth/login</code> response includes it and is saved to{" "}
+            <code>localStorage.user</code>.
+          </div>
+        </section>
+      </div>
+    );
+  }
 
   return (
-    <div className="max-w-4xl mx-auto p-4">
-      <h1 className="text-3xl mb-4">Your Dashboard</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-        {flights.map((f) => (
-          <FlightCard key={f.flightId} flight={f} onBooked={triggerRefresh} />
-        ))}
-      </div>
-      <div>
-        <UserBookings refreshKey={bookingsKey} />
-      </div>
+    <div className="dash">
+      <header className="dash-header">
+        <h1>My Dashboard</h1>
+      </header>
+
+      <section className="cards">
+        <div className="kpi">
+          <div className="kpi-label">Upcoming flights</div>
+          <div className="kpi-value">{stats.totalUpcoming}</div>
+        </div>
+        <div className="kpi">
+          <div className="kpi-label">Statuses</div>
+          <div className="kpi-chips">
+            {Object.entries(stats.byStatus).map(([s, n]) => (
+              <span key={s} className={`chip chip-${s.toLowerCase()}`}>
+                {s}: {n}
+              </span>
+            ))}
+            {Object.keys(stats.byStatus).length === 0 && (
+              <span className="muted">—</span>
+            )}
+          </div>
+        </div>
+      </section>
+
+      <section className="panel">
+        <div className="panel-head">
+          <h2>Upcoming flights</h2>
+          <div className="muted">
+            {loading
+              ? "Loading…"
+              : err
+              ? `Error: ${err}`
+              : `${upcoming.length} total`}
+          </div>
+        </div>
+
+        {!loading && !err && upcoming.length === 0 && (
+          <div className="empty">No upcoming flights for your account.</div>
+        )}
+
+        <ul className="flight-list">
+          {upcoming.map((f) => (
+            <li key={f.flightId} className="flight-card">
+              <div className="line top">
+                <strong>{f.flightNumber}</strong>
+                <span className={`status ${f.status?.toLowerCase()}`}>
+                  {f.status}
+                </span>
+              </div>
+              <div className="line">
+                {f.originAirport?.airportName || "Origin"} (
+                {f.originAirport?.areaCode}) →
+                {f.destinationAirport?.airportName || "Destination"} (
+                {f.destinationAirport?.areaCode})
+              </div>
+              <div className="line">
+                Departs: {fmt(f.departureTime)} · Arrives: {fmt(f.arrivalTime)}
+              </div>
+              <div className="line sub">
+                Airline:{" "}
+                {f.airline?.airlineName ?? `#${f.airline?.airlineId ?? ""}`} ·
+                Gate: {f.gate?.gateName}
+                {f.gate?.terminal ? ` · ${f.gate.terminal}` : ""} · Aircraft:{" "}
+                {f.aircraft?.type}
+              </div>
+              <div className="actions">
+                <a className="btn ghost" href={`/flights/${f.flightId}`}>
+                  View details
+                </a>
+                <button
+                  className="btn"
+                  onClick={() => alert(`Check-in for ${f.flightNumber}`)}
+                >
+                  Check in
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
     </div>
   );
 }

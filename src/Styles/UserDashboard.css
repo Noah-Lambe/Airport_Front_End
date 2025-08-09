@@ -1,0 +1,205 @@
+.dash {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  font-family: system-ui, sans-serif;
+  color: #222;
+}
+
+.dash-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.dash-header h1 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+.cards {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.kpi {
+  flex: 1;
+  background: #f7f8fa;
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.kpi-label {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 0.25rem;
+}
+
+.kpi-value {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.kpi-chips {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.chip {
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #fff;
+}
+
+/* Status colors */
+.chip-scheduled {
+  background: #2d89ef;
+}
+.chip-boarding {
+  background: #f0ad4e;
+}
+.chip-departed {
+  background: #5cb85c;
+}
+.chip-delayed {
+  background: #d9534f;
+}
+.chip-cancelled {
+  background: #6c757d;
+}
+
+.panel {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.panel-head h2 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.muted {
+  color: #888;
+  font-size: 0.9rem;
+}
+
+.empty {
+  color: #666;
+  font-style: italic;
+  padding: 1rem 0;
+  text-align: center;
+}
+
+.flight-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.flight-card {
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 0.8rem 1rem;
+  margin-bottom: 1rem;
+  background: #fafafa;
+  transition: box-shadow 0.2s ease;
+}
+
+.flight-card:hover {
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
+}
+
+.flight-card .line {
+  margin: 0.2rem 0;
+}
+
+.flight-card .line.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status {
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  color: #fff;
+  font-weight: 500;
+}
+
+/* Match status colors with chips */
+.status.scheduled {
+  background: #2d89ef;
+}
+.status.boarding {
+  background: #f0ad4e;
+}
+.status.departed {
+  background: #5cb85c;
+}
+.status.delayed {
+  background: #d9534f;
+}
+.status.cancelled {
+  background: #6c757d;
+}
+
+.line.sub {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  margin-right: 1rem;
+  border-radius: 6px;
+  border: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.btn.ghost {
+  background: transparent;
+  border: 1px solid #ccc;
+}
+
+.btn.ghost:hover {
+  background: #f1f1f1;
+}
+
+.btn:not(.ghost) {
+  background: #007bff;
+  color: #fff;
+}
+
+.btn:not(.ghost):hover {
+  background: #0056b3;
+}
+
+@media (max-width: 700px) {
+  .cards {
+    flex-direction: column;
+  }
+}
