@@ -14,6 +14,7 @@ export default function UserDashboard() {
   const [upcoming, setUpcoming] = useState([]);
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState("");
+  const [cancellingId, setCancellingId] = useState(null);
 
   // Fetch upcoming flights when user is ready
   useEffect(() => {
@@ -148,11 +149,43 @@ export default function UserDashboard() {
                 <a className="btn ghost" href={`/flights/${f.flightId}`}>
                   View details
                 </a>
+
                 <button
                   className="btn"
                   onClick={() => alert(`Check-in for ${f.flightNumber}`)}
                 >
                   Check in
+                </button>
+
+                <button
+                  className="btn danger"
+                  disabled={cancellingId === f.flightId}
+                  onClick={async () => {
+                    try {
+                      setCancellingId(f.flightId);
+                      await api.delete(
+                        `/flights/${f.flightId}/passengers/${passengerId}`
+                      );
+                      setUpcoming((prev) =>
+                        prev.filter((x) => x.flightId !== f.flightId)
+                      );
+                      // Notify other tabs/components
+                      localStorage.setItem(
+                        "bookings:lastUpdate",
+                        String(Date.now())
+                      );
+                    } catch (e) {
+                      alert(
+                        `Cancel failed: ${e?.response?.status || ""} ${
+                          e?.message || ""
+                        }`
+                      );
+                    } finally {
+                      setCancellingId(null);
+                    }
+                  }}
+                >
+                  {cancellingId === f.flightId ? "Cancelling…" : "Cancel"}
                 </button>
               </div>
             </li>

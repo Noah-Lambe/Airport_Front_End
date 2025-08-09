@@ -1,4 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
+import { useAuth } from "../hooks/UserAuthentication";
+import api from "../api/client";
+
 const API = "http://localhost:8080";
 
 const airportValue = (a) => a.airportId;
@@ -58,6 +61,12 @@ export default function FlightSearchPage() {
   const [error, setError] = useState("");
   const [loadingOpts, setLoadingOpts] = useState(true);
   const [optsErr, setOptsErr] = useState("");
+
+  // 🔐 auth for booking
+  const { currentUser, isLoggedIn } = useAuth();
+  const passengerId = currentUser?.passengerId;
+  const [bookingId, setBookingId] = useState(null);
+  const [bookMsg, setBookMsg] = useState("");
 
   // dropdown options
   useEffect(() => {
@@ -290,6 +299,7 @@ export default function FlightSearchPage() {
               : error
               ? `Error: ${error}`
               : `${data.totalElements || 0} flights`}
+            {bookMsg ? ` · ${bookMsg}` : ""}
           </div>
         </header>
 
@@ -321,8 +331,39 @@ export default function FlightSearchPage() {
                 {f.gate?.terminal ? ` · ${f.gate.terminal}` : ""}
               </div>
               <div className="line">Aircraft: {f.aircraft?.type}</div>
-              <button onClick={() => alert(`Select flight ${f.flightId}`)}>
-                Select
+
+              {/* flight booking */}
+              <button
+                disabled={
+                  !isLoggedIn || !passengerId || bookingId === f.flightId
+                }
+                onClick={async () => {
+                  if (!isLoggedIn || !passengerId) {
+                    setBookMsg("Please log in first.");
+                    return;
+                  }
+                  try {
+                    setBookingId(f.flightId);
+                    setBookMsg("");
+                    await api.post(`/flights/${f.flightId}/addPassenger`, {
+                      passengerId,
+                    });
+                    setBookMsg(`Booked ${f.flightNumber}.`);
+
+                    localStorage.setItem(
+                      "bookings:lastUpdate",
+                      String(Date.now())
+                    );
+                  } catch (e) {
+                    setBookMsg(
+                      `Booking failed (${e?.response?.status || "error"})`
+                    );
+                  } finally {
+                    setBookingId(null);
+                  }
+                }}
+              >
+                {bookingId === f.flightId ? "Booking…" : "Book Flight"}
               </button>
             </li>
           ))}
