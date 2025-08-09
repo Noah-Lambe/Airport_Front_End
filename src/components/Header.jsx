@@ -28,6 +28,9 @@ export default function Header() {
               <Link to="/airport-flights" className="nav-link">
                 Home
               </Link>
+              <Link to="/flight-search" className="nav-link">
+                Search Flights
+              </Link>
               <Link to="/dashboard" className="nav-link">
                 {isAdmin ? "Admin Dashboard" : "User Dashboard"}
               </Link>

@@ -9,6 +9,9 @@ import Register from "./pages/Register";
 import UserDashboard from "./pages/UserDashboard";
 //import AdminDashboard from './components/AdminDashboard';
 import Header from "./components/Header";
+import FlightSearchPage from "./pages/FlightSearch";
+import "./styles/FlightSearch.css";
+import "./styles/UserDashboard.css";
 
 function PrivateRoute({ children }) {
   const { currentUser } = useAuth();
@@ -30,6 +33,7 @@ export default function App() {
         <Route path="/airport-flights" element={<AirportFlights />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/flight-search" element={<FlightSearchPage />} />
         {/* Jons contact route should go here */}
 
         {/* Dashboard Route (admin vs user) */}
