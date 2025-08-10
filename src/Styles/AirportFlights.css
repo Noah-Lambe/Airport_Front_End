@@ -30,6 +30,13 @@
   cursor: pointer;
   min-width: 120px;
   width: 200px;
+  min-height: 25px;
+  height: 50px;
+  font-size: 1.25em;
+}
+
+.tab-buttons :hover {
+  transform: scale(1.05);
 }
 
 .tab-buttons .active-tab {
