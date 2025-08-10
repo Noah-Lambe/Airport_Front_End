@@ -21,7 +21,7 @@ export default function Header() {
       </div>
 
       <header className="header">
-        <h1 className="header-title">Totally Awesome Group's Airport</h1>
+        <h1 className="header-title">Farewell Finder</h1>
         <nav>
           {isLoggedIn && (
             <>
