@@ -9,10 +9,10 @@ import UserDashboard from "./pages/UserDashboard";
 //import AdminDashboard from './components/AdminDashboard';
 import Header from "./components/Header";
 import Contact from "./pages/ContactPage";
+import Footer from "./components/Footer";
 import FlightSearchPage from "./pages/FlightSearch";
 import "./styles/FlightSearch.css";
 import "./styles/UserDashboard.css";
-
 
 function PrivateRoute({ children }) {
   const { currentUser } = useAuth();
@@ -25,6 +25,7 @@ export default function App() {
 
   return (
     <BrowserRouter>
+
       <Header />
 
       <Routes>
@@ -50,6 +51,9 @@ export default function App() {
         {/* Fallback */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+
+        <Footer />
+
     </BrowserRouter>
   );
 }
