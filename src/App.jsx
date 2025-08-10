@@ -9,6 +9,10 @@ import UserDashboard from "./pages/UserDashboard";
 //import AdminDashboard from './components/AdminDashboard';
 import Header from "./components/Header";
 import Contact from "./pages/ContactPage";
+import FlightSearchPage from "./pages/FlightSearch";
+import "./styles/FlightSearch.css";
+import "./styles/UserDashboard.css";
+
 
 function PrivateRoute({ children }) {
   const { currentUser } = useAuth();
@@ -24,11 +28,16 @@ export default function App() {
       <Header />
 
       <Routes>
-        <Route path="/" element={<Navigate to="/dashboard" replace />} />
+        <Route path="/" element={<Navigate to="/airport-flights" replace />} />
+
+        {/* public routes */}
+        <Route path="/airport-flights" element={<AirportFlights />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/flight-search" element={<FlightSearchPage />} />
+        <Route path="/contact" element={<Contact />} />
 
-        {/* Dashboard Route (admin vs user) */}
+        {/* Dashboard Route (admin vs user) (private) */}
         <Route
           path="/dashboard"
           element={
@@ -38,22 +47,7 @@ export default function App() {
           }
         />
 
-        {/* Airport Flights Route */}
-        <Route
-          path="/airport-flights"
-          element={
-            <PrivateRoute>
-              <div className="App">
-                <AirportFlights />
-              </div>
-            </PrivateRoute>
-          }
-        />
-
-        {/* Contact Page Route */}
-        <Route path="/contact" element={<Contact />} />
-
-        {/* Fallback for unknown routes */}
+        {/* Fallback */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
