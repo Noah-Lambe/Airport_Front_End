@@ -21,12 +21,15 @@ export default function Header() {
       </div>
 
       <header className="header">
-        <h1 className="header-title">Totally Awesome Group's Airport</h1>
+        <h1 className="header-title">Farewell Finder</h1>
         <nav>
           {isLoggedIn && (
             <>
               <Link to="/airport-flights" className="nav-link">
                 Home
+              </Link>
+              <Link to="/flight-search" className="nav-link">
+                Search Flights
               </Link>
               <Link to="/dashboard" className="nav-link">
                 {isAdmin ? "Admin Dashboard" : "User Dashboard"}

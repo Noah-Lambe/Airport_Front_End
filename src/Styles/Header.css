@@ -11,16 +11,18 @@
 }
 
 .header {
-  background-color: #003f7f;
+  background: linear-gradient(to right, #003f7f, #005f9e);
   color: white;
   padding: 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .header-title {
   text-align: left;
+  font-size: 2.5em;
 }
 
 nav {
@@ -31,11 +33,13 @@ nav {
 
 .nav-link {
   color: white;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   margin: 10px;
   text-decoration: none;
+  transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .nav-link:hover {
   transform: scale(1.25);
+  color: #fae8b2;
 }
