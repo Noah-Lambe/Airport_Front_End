@@ -1,4 +1,3 @@
-// src/App.jsx
 import React from "react";
 import "./styles/App.css";
 import AirportFlights from "./AirportFlights";
@@ -9,9 +8,11 @@ import Register from "./pages/Register";
 import UserDashboard from "./pages/UserDashboard";
 //import AdminDashboard from './components/AdminDashboard';
 import Header from "./components/Header";
+import Contact from "./pages/ContactPage";
 import FlightSearchPage from "./pages/FlightSearch";
 import "./styles/FlightSearch.css";
 import "./styles/UserDashboard.css";
+
 
 function PrivateRoute({ children }) {
   const { currentUser } = useAuth();
@@ -34,9 +35,9 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/flight-search" element={<FlightSearchPage />} />
-        {/* Jons contact route should go here */}
+        <Route path="/contact" element={<Contact />} />
 
-        {/* Dashboard Route (admin vs user) */}
+        {/* Dashboard Route (admin vs user) (private) */}
         <Route
           path="/dashboard"
           element={
@@ -46,7 +47,7 @@ export default function App() {
           }
         />
 
-        {/* Fallback for unknown routes */}
+        {/* Fallback */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
