@@ -21,7 +21,7 @@ export default function Header() {
       </div>
 
       <header className="header">
-        <h1 className="header-title">Totally Awesome Group's Airport</h1>
+        <h1 className="header-title">Farewell Finder</h1>
         <nav>
           {isLoggedIn && (
             <>
@@ -35,7 +35,7 @@ export default function Header() {
                 {isAdmin ? "Admin Dashboard" : "User Dashboard"}
               </Link>
               <button
-                onClick={logout}
+                onClick={handleLogout}
                 className="nav-link"
                 style={{
                   background: "none",
