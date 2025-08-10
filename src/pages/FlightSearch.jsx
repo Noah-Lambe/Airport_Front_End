@@ -227,7 +227,7 @@ export default function FlightSearchPage() {
         </label>
 
         <label>
-          Flight number (optional)
+          Flight number
           <input
             placeholder="e.g. AC123"
             value={filters.flightNumber}
