@@ -11,6 +11,10 @@ import Header from "./components/Header";
 import Contact from "./pages/ContactPage";
 import Footer from "./components/Footer";
 import About from "./pages/AboutPage";
+import FlightSearchPage from "./pages/FlightSearch";
+import "./styles/FlightSearch.css";
+import "./styles/UserDashboard.css";
+
 
 function PrivateRoute({ children }) {
   const { currentUser } = useAuth();
@@ -23,46 +27,36 @@ export default function App() {
 
   return (
     <BrowserRouter>
-        <Header />
 
-        <Routes>
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+      <Header />
 
-          {/* Dashboard Route (admin vs user) */}
-          <Route
-            path="/dashboard"
-            element={
-              <PrivateRoute>
-                {isAdmin ? <AdminDashboard /> : <UserDashboard />}
-              </PrivateRoute>
-            }
-          />
+      <Routes>
+        <Route path="/" element={<Navigate to="/airport-flights" replace />} />
 
-          {/* Airport Flights Route */}
-          <Route
-            path="/airport-flights"
-            element={
-              <PrivateRoute>
-                <div className="App">
-                  <AirportFlights />
-                </div>
-              </PrivateRoute>
-            }
-          />
+        {/* public routes */}
+        <Route path="/airport-flights" element={<AirportFlights />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/flight-search" element={<FlightSearchPage />} />
+        <Route path="/contact" element={<Contact />} />
+         <Route path="/about" element={<About />} />
 
-          {/* Contact Page Route */}
-          <Route path="/contact" element={<Contact />} />
+        {/* Dashboard Route (admin vs user) (private) */}
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              {isAdmin ? <AdminDashboard /> : <UserDashboard />}
+            </PrivateRoute>
+          }
+        />
 
-          {/* About Page Route */}
-          <Route path="/about" element={<About />} />
-
-          {/* Fallback for unknown routes */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+        {/* Fallback */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
 
         <Footer />
+
     </BrowserRouter>
   );
 }
