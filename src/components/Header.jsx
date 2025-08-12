@@ -34,6 +34,9 @@ export default function Header() {
               <Link to="/dashboard" className="nav-link">
                 {isAdmin ? "Admin Dashboard" : "User Dashboard"}
               </Link>
+              <Link to="/about" className="nav-link">
+                About
+              </Link>
               <Link to="/contact" className="nav-link">
                 Contact
               </Link>
