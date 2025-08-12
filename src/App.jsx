@@ -10,6 +10,7 @@ import UserDashboard from "./pages/UserDashboard";
 import Header from "./components/Header";
 import Contact from "./pages/ContactPage";
 import Footer from "./components/Footer";
+import About from "./pages/AboutPage";
 
 function PrivateRoute({ children }) {
   const { currentUser } = useAuth();
@@ -53,6 +54,9 @@ export default function App() {
 
           {/* Contact Page Route */}
           <Route path="/contact" element={<Contact />} />
+
+          {/* About Page Route */}
+          <Route path="/about" element={<About />} />
 
           {/* Fallback for unknown routes */}
           <Route path="*" element={<Navigate to="/" replace />} />
