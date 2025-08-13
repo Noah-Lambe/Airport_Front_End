@@ -21,7 +21,9 @@ export default function Header() {
       </div>
 
       <header className="header">
-        <h1 className="header-title">Farewell Finder</h1>
+        <Link to="/airport-flights" className="header-link">
+          <h1 className="header-title">Farewell Finder</h1>
+        </Link>
         <nav>
           {isLoggedIn && (
             <>

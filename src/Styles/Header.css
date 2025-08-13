@@ -3,7 +3,7 @@
   display: flex;
   justify-content: flex-end;
   font-weight: bold;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 .airport-code-bar p {
@@ -20,6 +20,12 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
+.header-link {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
 .header-title {
   text-align: left;
   font-size: 2.5em;
@@ -28,7 +34,7 @@
 nav {
   display: flex;
   gap: 20px;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 .nav-link {
