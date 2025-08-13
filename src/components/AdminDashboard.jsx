@@ -22,32 +22,27 @@ export default function AdminDashboard() {
 
   const renderTab = () => {
     switch (activeTab) {
-      case "Flights": return <FlightsAdmin />;
-      case "Airlines": return <AirlinesAdmin />;
-      case "Airports": return <AirportsAdmin />;
-      case "Gates": return <GatesAdmin />;
-      case "Aircraft": return <AircraftAdmin />;
-      case "Passengers": return <PassengersAdmin />;
-      case "Cities": return <CitiesAdmin />;
-      default: return null;
+      case "Flights":
+        return <FlightsAdmin />;
+      case "Airlines":
+        return <AirlinesAdmin />;
+      case "Airports":
+        return <AirportsAdmin />;
+      case "Gates":
+        return <GatesAdmin />;
+      case "Aircraft":
+        return <AircraftAdmin />;
+      case "Passengers":
+        return <PassengersAdmin />;
+      case "Cities":
+        return <CitiesAdmin />;
+      default:
+        return null;
     }
   };
 
   return (
     <div className="admin-root">
-      {/* Top bar */}
-      <header className="topbar">
-        <div className="brand">Totally Awesome Group's Airport</div>
-
-        <nav className="nav">
-          <a href="/">Home</a>
-          <a href="/user-dashboard">User Dashboard</a>
-          <a href="/logout">Log Out</a>
-        </nav>
-
-        <div className="airport-code">Airport Code: YYT</div>
-      </header>
-
       {/* Section header */}
       <section className="section-hero">
         <div className="section-hero__content">
@@ -58,7 +53,9 @@ export default function AdminDashboard() {
             {TABS.map((t) => (
               <button
                 key={t.key}
-                className={`segmented__btn ${activeTab === t.key ? "is-active" : ""}`}
+                className={`segmented__btn ${
+                  activeTab === t.key ? "is-active" : ""
+                }`}
                 onClick={() => setActiveTab(t.key)}
                 type="button"
               >
@@ -71,9 +68,7 @@ export default function AdminDashboard() {
 
       {/* Content card */}
       <main className="content-wrap">
-        <div className="card">
-          {renderTab()}
-        </div>
+        <div className="card">{renderTab()}</div>
       </main>
     </div>
   );
