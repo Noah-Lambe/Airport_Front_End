@@ -16,13 +16,12 @@ import "./styles/FlightSearch.css";
 import "./styles/UserDashboard.css";
 
 function PrivateRoute({ children }) {
-  const { currentUser } = useAuth();
-  return currentUser ? children : <Navigate to="/login" replace />;
+  const { isLoggedIn } = useAuth();
+  return isLoggedIn ? children : <Navigate to="/login" replace />;
 }
 
 export default function App() {
-  const { currentUser } = useAuth();
-  const isAdmin = currentUser?.role === "admin";
+  const { isAdmin, isUser } = useAuth();
 
   return (
     <BrowserRouter>

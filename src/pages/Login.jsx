@@ -13,7 +13,8 @@ export default function Login() {
     try {
       await login(username, password);
       navigate("/dashboard");
-    } catch {
+    } catch (err) {
+      console.error(err);
       alert("Login failed");
     }
   };
