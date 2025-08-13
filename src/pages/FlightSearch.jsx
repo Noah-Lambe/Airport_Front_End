@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useAuth } from "../hooks/UserAuthentication";
 import api from "../api/client";
 
-const API = "http://localhost:8080";
+const API = "http://107.23.204.225:8081";
 
 const airportValue = (a) => a.airportId;
 const airportLabel = (a) => {
