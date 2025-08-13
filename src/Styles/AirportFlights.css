@@ -1,0 +1,86 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+.table-banner {
+  background: linear-gradient(to right, #0070a6, #0089b8);
+  color: white;
+  padding: 20px;
+  width: 100%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  
+}
+
+.title {
+  font-size: 2.2em;
+  font-family: 'Roboto', sans-serif;
+}
+
+.tab-buttons {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+  margin-left: auto;
+  margin-right: 50px;
+}
+
+.tab-buttons button {
+  background-color: #0077B6;;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  min-width: 120px;
+  width: 200px;
+  min-height: 25px;
+  height: 50px;
+  font-size: 1.25em;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.tab-buttons :hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.tab-buttons .active-tab {
+  background-color: #7ec6ecff;
+  color: black;
+  border-color: #7ec6ecff;
+}
+
+table {
+  border-collapse: collapse;
+  width: 95%;
+  max-width: 2000px;
+  font-size: 16px;
+  margin: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+thead {
+  background: linear-gradient(to right, #0085b6, #00a2c7);
+}
+
+.tableHeader,
+.tableElement {
+  padding: 18px 16px;
+  text-align: left;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #d9d9d9;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: white;
+}

@@ -1,12 +1,8 @@
 import axios from "axios";
 
-const api = axios.create({
+const publicApi = axios.create({
   baseURL: import.meta.env.VITE_API_URL || "http://localhost:8080",
   headers: { "Content-Type": "application/json" },
 });
 
-export function setBasicAuth(username, password) {
-  api.defaults.auth = { username, password };
-}
-
-export default api;
+export default publicApi;

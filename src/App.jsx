@@ -1,47 +1,59 @@
 import React from "react";
+import "./styles/App.css";
+import AirportFlights from "./AirportFlights";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useAuth } from "./hooks/UserAuthentication";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import UserDashboard from "./pages/UserDashboard";
 import AdminDashboard from "./components/AdminDashboard";
-import "./App.css";
+import Header from "./components/Header";
+import Contact from "./pages/ContactPage";
+import Footer from "./components/Footer";
+import About from "./pages/AboutPage";
+import FlightSearchPage from "./pages/FlightSearch";
+import "./styles/FlightSearch.css";
+import "./styles/UserDashboard.css";
 
-
-function App(){
-  const isAdmin = true;
-
-  return (
-    <div>
-      {isAdmin ? <AdminDashboard/> : <Userdashboard />}
-    </div>
-  );
+function PrivateRoute({ children }) {
+  const { currentUser } = useAuth();
+  return currentUser ? children : <Navigate to="/login" replace />;
 }
 
-export default App;
+export default function App() {
+  const { currentUser } = useAuth();
+  const isAdmin = currentUser?.role === "admin";
 
-//function PrivateRoute({ children }) {
-  //const { currentUser } = useAuth();
-  //return currentUser ? children : <Navigate to="/login" />;
-//}
+  return (
+    <BrowserRouter>
+      <Header />
 
-//export default function App() {
-  //return (
-    //<BrowserRouter>
-      //<Routes>
-        //<Route path="/" element={<Navigate to="/dashboard" replace />} />
-        //<Route path="/login" element={<Login />} />
-        //<Route path="/register" element={<Register />} />
-        //<Route
-          //path="/dashboard"
-          //element={
-            //<PrivateRoute>
-              //<UserDashboard />
-            //</PrivateRoute>
-          //}
-        //>
-      //</Routes>
-    //</BrowserRouter>
-  //);
+      <Routes>
+        <Route path="/" element={<Navigate to="/airport-flights" replace />} />
 
-//}
+        {/* public routes */}
+        <Route path="/airport-flights" element={<AirportFlights />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/flight-search" element={<FlightSearchPage />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/about" element={<About />} />
+
+        {/* Dashboard Route (admin vs user) (private) */}
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              {isAdmin ? <AdminDashboard /> : <UserDashboard />}
+            </PrivateRoute>
+          }
+        />
+
+        {/* Fallback */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+
+      <Footer />
+    </BrowserRouter>
+  );
+}

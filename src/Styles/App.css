@@ -1,0 +1,208 @@
+/* #root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+} */
+
+/* ===== Look & feel to match the Flight Board page ===== */
+:root {
+  --blue-900: #0a3b66;
+  --blue-800: #0d4a85;
+  --blue-600: #1174b6;
+  --blue-500: #1b8ad4;
+  --blue-300: #5fb4e7;
+  --bg: #f2f5f8;
+  --text: #0f1720;
+  --muted: #6b7280;
+  --white: #ffffff;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Top bar */
+.topbar {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 24px;
+  padding: 20px 24px;
+  background: linear-gradient(180deg, var(--blue-900), var(--blue-800));
+  color: var(--white);
+  box-shadow: var(--shadow);
+}
+.brand {
+  font-size: 20px;
+  font-weight: 700;
+}
+.nav {
+  display: flex;
+  gap: 24px;
+}
+.nav a {
+  color: var(--white);
+  text-decoration: none;
+  font-weight: 600;
+}
+.nav a:hover {
+  text-decoration: underline;
+}
+
+.airport-code {
+  justify-self: end;
+  font-weight: 700;
+  opacity: 0.9;
+}
+
+/* Section header strip (like FLIGHT BOARD) */
+.section-hero {
+  background: var(--blue-600);
+  padding: 16px 0 24px;
+  box-shadow: var(--shadow);
+  position: relative;
+}
+.section-hero__content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.section-title {
+  color: var(--white);
+  margin: 0 0 16px 0;
+  letter-spacing: 0.5px;
+}
+
+/* Segmented pills */
+.segmented {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.segmented__btn {
+  appearance: none;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  background: transparent;
+  color: #fff;
+  font-weight: 700;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.segmented__btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+.segmented__btn.is-active {
+  background: #fff;
+  color: var(--blue-800);
+  border-color: #fff;
+}
+
+/* Page content card */
+.content-wrap {
+  max-width: 1200px;
+  margin: 24px auto 48px;
+  padding: 0 24px;
+}
+.card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  padding: 18px;
+}
+
+/* Generic table styling to match screenshot */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+thead th {
+  text-align: left;
+  padding: 12px 10px;
+  background: #e7f1fb;
+  color: #0f2f4b;
+  border-bottom: 2px solid #d6e6f7;
+  font-weight: 700;
+}
+tbody td {
+  padding: 12px 10px;
+  border-bottom: 1px solid #eef3f8;
+}
+tbody tr:nth-child(even) {
+  background: #f5f7fb;
+}
+tbody tr:hover {
+  background: #eef6ff;
+}
+
+/* Buttons inside tables/forms */
+button {
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+button:hover {
+  background: #f2f6fb;
+}
+button + button {
+  margin-left: 8px;
+}
+
+input,
+select {
+  padding: 8px 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  margin: 6px;
+}
