@@ -6,7 +6,7 @@ import { useAuth } from "./hooks/UserAuthentication";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import UserDashboard from "./pages/UserDashboard";
-//import AdminDashboard from './components/AdminDashboard';
+import AdminDashboard from "./components/AdminDashboard";
 import Header from "./components/Header";
 import Contact from "./pages/ContactPage";
 import Footer from "./components/Footer";
@@ -15,19 +15,16 @@ import FlightSearchPage from "./pages/FlightSearch";
 import "./styles/FlightSearch.css";
 import "./styles/UserDashboard.css";
 
-
 function PrivateRoute({ children }) {
-  const { currentUser } = useAuth();
-  return currentUser ? children : <Navigate to="/login" replace />;
+  const { isLoggedIn } = useAuth();
+  return isLoggedIn ? children : <Navigate to="/login" replace />;
 }
 
 export default function App() {
-  const { currentUser } = useAuth();
-  const isAdmin = currentUser?.role === "admin";
+  const { isAdmin, isUser } = useAuth();
 
   return (
     <BrowserRouter>
-
       <Header />
 
       <Routes>
@@ -39,7 +36,7 @@ export default function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/flight-search" element={<FlightSearchPage />} />
         <Route path="/contact" element={<Contact />} />
-         <Route path="/about" element={<About />} />
+        <Route path="/about" element={<About />} />
 
         {/* Dashboard Route (admin vs user) (private) */}
         <Route
@@ -55,8 +52,7 @@ export default function App() {
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
 
-        <Footer />
-
+      <Footer />
     </BrowserRouter>
   );
 }
