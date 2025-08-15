@@ -14,9 +14,8 @@ const Contact = () => {
 
       <div className="contact-main">
         <h1>Mailing Address, Telephone and Fax</h1>
-        <p>Totally Awesome Group's Airport Authority</p>
-        <p>Box 69, Airport Termincal Building</p>
-        <p>420 Blaze St</p>
+        <p>Fairwell Finder Authority</p>
+        <p>Box 69, 420 Blaze St</p>
         <p>St. John's, NL</p>
         <p>Canada &nbsp; A1A 2B2</p>
         <br />
@@ -26,7 +25,7 @@ const Contact = () => {
         <p>
           Email:{' '}
           <a href="#">
-            totallyawesomeairport@group.com
+            farewellfinder@outlook.com
           </a>
         </p>
       </div>
