@@ -14,7 +14,7 @@ export default function AirportFlights() {
       setLoading(true);
       setError(null);
       try {
-        const res = await axios.get("http://107.23.204.225:8081/flights");
+        const res = await axios.get("http://3.82.8.140:8081/flights");
         const allFlights = res.data;
 
         const now = new Date();
